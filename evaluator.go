@@ -1,7 +1,7 @@
 package main
 
 import (
-	"crypto/sha1"
+	"crypto/sha1" // #nosec G505 -- retained to keep rollout buckets stable across releases
 	"encoding/binary"
 	"encoding/json"
 	"fmt"
@@ -198,7 +198,7 @@ func (a *App) runEvaluationLogic(info *CombinedFlagInfo, userID string) bool {
 
 func getDeterministicBucket(input string) int {
 	// Usamos SHA1 (rápido) e pegamos os primeiros 4 bytes
-	hasher := sha1.New()
+	hasher := sha1.New() // #nosec G401 -- used only for deterministic rollout bucketing
 	hasher.Write([]byte(input))
 	hash := hasher.Sum(nil)
 
